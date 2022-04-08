@@ -6,16 +6,17 @@ enum Direction(val value: Int):
   case STAYING extends Direction(0)
 
 object Direction:
-  def apply(currentFloor: Int, destinationFloor: Int): Direction = {
-    val difference = destinationFloor - currentFloor
+  def apply(currentFloor: Int, destinationFloor: Int): Direction = apply(destinationFloor - currentFloor)
 
-    if difference > 0 then
+  def apply(value: Int): Direction = {
+    if value > 0 then
       Direction.UP
-    else if difference < 0 then
+    else if value < 0 then
       Direction.DOWN
     else
       Direction.STAYING
   }
+
 
 
 

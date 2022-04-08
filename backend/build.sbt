@@ -18,6 +18,7 @@ libraryDependencies ++= Seq(
   "org.http4s" %% "http4s-ember-client" % http4sVersion,
   "ch.qos.logback" % "logback-classic" % "1.2.11" % Runtime,
 
-  "org.scalatest" %% "scalatest" % "3.2.11" % Test
-)
+  "org.scalatest" %% "scalatest" % "3.2.11" % Test,
 
+  "org.json4s" %% "json4s-jackson" % "4.0.4"
+)
