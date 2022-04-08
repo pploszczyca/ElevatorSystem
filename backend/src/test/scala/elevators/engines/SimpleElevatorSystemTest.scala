@@ -1,8 +1,8 @@
 package elevators.engines
 
-import org.scalatest.funsuite.AnyFunSuite
+import elevators.models.{Direction, ElevatorStatus, SimpleElevator}
 import org.scalatest.BeforeAndAfter
-import elevators.models.{ElevatorStatus, SimpleElevator}
+import org.scalatest.funsuite.AnyFunSuite
 
 class SimpleElevatorSystemTest extends AnyFunSuite with BeforeAndAfter {
   val numberOfElevators = 4
@@ -23,5 +23,18 @@ class SimpleElevatorSystemTest extends AnyFunSuite with BeforeAndAfter {
 
     // Then
     assert(elevatorSystem.status().contains(ElevatorStatus(elevatorIdToUpdate, 0, destinationFloor)))
+  }
+
+  test("Pickup and step test") {
+    // Given
+    val floor = 2
+    val direction = Direction.UP
+
+    // When
+    elevatorSystem.pickup(floor, direction)
+    elevatorSystem.step()
+
+    // Then
+    assert(elevatorSystem.status().contains(ElevatorStatus(0, 1, floor)))
   }
 }
