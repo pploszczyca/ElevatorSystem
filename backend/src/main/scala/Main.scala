@@ -1,5 +1,6 @@
-object Main {
-  def main(args: Array[String]): Unit = {
-    println("Hello World")
-  }
+import api.ServerBuilder
+import cats.effect.{ExitCode, IO, IOApp}
+
+object Main extends IOApp {
+  def run(args: List[String]): IO[ExitCode] = ServerBuilder()
 }
