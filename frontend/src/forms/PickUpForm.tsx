@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { PICKUP_PATH } from "../Constants";
 import { CRUDType, useFetch } from "../hooks/UseFetch";
@@ -10,12 +10,11 @@ export function PickUpForm() {
 
     useFetch(url, CRUDType.POST)
 
-    function pickUpFormSubmit(evt: any) {
-        setUrl(`${PICKUP_PATH}/${floor}/${direction}`)
-    }
+    const pickUpFormSubmit = (evt: any) => setUrl(`${PICKUP_PATH}/${floor}/${direction}`)
 
     return (
-        <Form>
+        <Form className="p-2">
+            <h1>Pick Up Form</h1>
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="pickUpFloor">
                     <Form.Label>Floor</Form.Label>

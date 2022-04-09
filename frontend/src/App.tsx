@@ -4,21 +4,32 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { CRUDType, useFetch } from './hooks/UseFetch';
 import { ELEVATORS_PATH } from './Constants';
 import { PickUpForm } from './forms/PickUpForm';
+import { UpdateForm } from './forms/UpdateForm';
+import { StepForm } from './forms/StepForm';
+import { Col, Container, Row } from 'react-bootstrap';
 
 function App() {
-  const [{ data, isLoading, error }] = useFetch(ELEVATORS_PATH, CRUDType.GET)
+  const [{ data, isLoading }] = useFetch(ELEVATORS_PATH, CRUDType.GET)
+  var elevatorsList = data
 
   if(isLoading) {
     return <div>Loading</div>
   }
 
   return (
-    <div className="p-2">
-      <h1>Elevators Status</h1>
-      <ElevatorsTable elevatorsList={data}/>
-      <h1>Pick Up Form</h1>
-      <PickUpForm/>
-    </div>
+    <Container className="p-2">
+      <Row>
+        <Col>
+          <h1>Elevators Status</h1>
+          <ElevatorsTable elevatorsList={elevatorsList}/>
+        </Col>
+        <Col>
+          <PickUpForm/>
+          <UpdateForm/>
+          <StepForm/>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
