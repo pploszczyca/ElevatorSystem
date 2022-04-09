@@ -11,16 +11,17 @@ export const useFetch = (url: string, method: CRUDType) => {
     const [error, setError] = useState<any>(null)
     const [runFetch, setRunFetch] = useState<boolean>(false)
 
-    const requestOptions: RequestInit = {
-        method: method,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const runFetchAgain = () => setRunFetch(!runFetch)
 
     useEffect(() => {
+        const requestOptions: RequestInit = {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    
         if(url !== "") {
             fetch(url, requestOptions)
             .then(async response => await response.json())
@@ -30,7 +31,7 @@ export const useFetch = (url: string, method: CRUDType) => {
             })
             .catch(error => setError(error.toString()))
         }
-    }, [url, runFetchAgain])
+    }, [url, runFetchAgain, method])
 
     return [{ data, isLoading, error, runFetchAgain }]
 }
