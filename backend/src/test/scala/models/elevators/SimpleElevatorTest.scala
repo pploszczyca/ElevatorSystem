@@ -1,6 +1,8 @@
-package elevators.models
+package models.elevators
 
+import models.{Direction, ElevatorStatus}
 import org.scalatest.funsuite.AnyFunSuite
+import models.elevators.SimpleElevator
 
 class SimpleElevatorTest extends AnyFunSuite {
   test("Step test") {
@@ -12,7 +14,6 @@ class SimpleElevatorTest extends AnyFunSuite {
     // When
     elevator.step()
 
-    // Then
     assert(elevator.status() == ElevatorStatus(elevatorId, 1, destinationFloor))
     assert(elevator.getCurrentDirection == Direction.UP)
   }

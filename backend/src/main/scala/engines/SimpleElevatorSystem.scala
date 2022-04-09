@@ -1,6 +1,7 @@
-package elevators.engines
+package engines
 
-import elevators.models.{Direction, Elevator, ElevatorStatus}
+import models.elevators.Elevator
+import models.{Direction, ElevatorStatus}
 
 class SimpleElevatorSystem(private val elevatorList: List[Elevator]) extends ElevatorSystem {
   private val elevatorsMap = elevatorList.map(elevator => elevator.status().elevatorID -> elevator).toMap

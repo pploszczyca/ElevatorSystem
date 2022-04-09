@@ -1,6 +1,8 @@
-package elevators.engines
+package engines
 
-import elevators.models.{Direction, ElevatorStatus, SimpleElevator}
+import models.{Direction, ElevatorStatus}
+import models.elevators.SimpleElevator
+import engines.ElevatorSystem
 import org.scalatest.BeforeAndAfter
 import org.scalatest.funsuite.AnyFunSuite
 

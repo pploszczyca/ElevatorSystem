@@ -2,8 +2,8 @@ package api
 
 import cats.effect.*
 import constants.Constants.{ELEVATORS_PATH, PICKUP_PATH, STEP_PATH, UPDATE_PATH}
-import elevators.engines.ElevatorSystem
-import elevators.models.{Direction, ElevatorStatus}
+import models.Direction
+import engines.ElevatorSystem
 import org.http4s.*
 import org.http4s.dsl.io.*
 import org.http4s.implicits.*

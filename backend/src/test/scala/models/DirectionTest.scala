@@ -1,4 +1,4 @@
-package elevators.models
+package models
 
 import org.scalatest.funsuite.AnyFunSuite
 

@@ -1,8 +1,8 @@
 import api.*
 import cats.effect.{ExitCode, IO, IOApp}
-import elevators.engines.SimpleElevatorSystem
-import elevators.models.SimpleElevator
 import constants.Constants.NUMBER_OF_ELEVATORS
+import engines.SimpleElevatorSystem
+import models.elevators.SimpleElevator
 
 object Main extends IOApp {
   def run(args: List[String]): IO[ExitCode] = {
