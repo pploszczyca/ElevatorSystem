@@ -7,7 +7,7 @@ interface ElevatorsTableProps {
 
 export function ElevatorsTable ({elevatorsList}: ElevatorsTableProps) {
     return (
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered variant="dark">
             <thead>
                 <tr>
                     <th>Elevator ID</th>

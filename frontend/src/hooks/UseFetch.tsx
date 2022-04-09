@@ -2,9 +2,7 @@ import { useEffect, useState } from "react"
 
 export enum CRUDType {
     GET = 'GET',
-    POST = 'POST',
-    PUT = 'PUT',
-    DELETE = 'DELETE'
+    POST = 'POST'
 }
 
 export const useFetch = (url: string, method: CRUDType) => {
@@ -20,13 +18,15 @@ export const useFetch = (url: string, method: CRUDType) => {
     }
 
     useEffect(() => {
-        fetch(url, requestOptions)
+        if(url !== "") {
+            fetch(url, requestOptions)
             .then(async response => await response.json())
             .then(async result => {
                 setData(result)
                 setIsLoading(false)
             })
             .catch(error => setError(error.toString()))
+        }
     }, [url])
 
     return [{ data, isLoading, error }]
