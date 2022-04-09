@@ -9,7 +9,7 @@ import { StepForm } from './forms/StepForm';
 import { Col, Container, Row } from 'react-bootstrap';
 
 function App() {
-  const [{ data, isLoading }] = useFetch(ELEVATORS_PATH, CRUDType.GET)
+  const [{ data, isLoading, runFetchAgain }] = useFetch(ELEVATORS_PATH, CRUDType.GET)
   var elevatorsList = data
 
   if(isLoading) {
@@ -24,9 +24,9 @@ function App() {
           <ElevatorsTable elevatorsList={elevatorsList}/>
         </Col>
         <Col>
-          <PickUpForm/>
-          <UpdateForm/>
-          <StepForm/>
+          <PickUpForm onClick={runFetchAgain}/>
+          <UpdateForm onClick={runFetchAgain}/>
+          <StepForm onClick={runFetchAgain}/>
         </Col>
       </Row>
     </Container>

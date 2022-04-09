@@ -2,18 +2,22 @@ import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { UPDATE_PATH } from "../Constants";
 import { CRUDType, useFetch } from "../hooks/UseFetch";
+import { OnClickProps } from "./OnClickProps";
 
-export function UpdateForm() {
+export function UpdateForm({onClick}: OnClickProps) {
     const [url, setUrl] = useState<string>("")
     const [elevatorId, setElevatorId] = useState<number>(0)
     const [destinationFloor, setDestinationFloor] = useState<number>(0)
-
-    useFetch(url, CRUDType.POST)
-
-    const updateFormSubmit = (evt: any) => setUrl(`${UPDATE_PATH}/${elevatorId}/${destinationFloor}`)
+    const [{ runFetchAgain }] = useFetch(url, CRUDType.POST)
+    
+    const onButtonClick = () => {
+        setUrl(`${UPDATE_PATH}/${elevatorId}/${destinationFloor}`)
+        runFetchAgain()
+        onClick();
+    }
 
     return (
-        <Form className="p-2">
+        <div className="p-2">
             <h1>Update Form</h1>
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="updateElevatorId">
@@ -27,9 +31,9 @@ export function UpdateForm() {
                 </Form.Group>
             </Row>
 
-            <Button variant="primary" type="submit" onClick={updateFormSubmit}>
-                Submit
+            <Button variant="primary" type="submit" onClick={onButtonClick}>
+                Make update
             </Button>
-        </Form>
+        </div>
     )
 }

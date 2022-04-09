@@ -1,21 +1,25 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { STEP_PATH } from "../Constants";
 import { CRUDType, useFetch } from "../hooks/UseFetch";
+import { OnClickProps } from "./OnClickProps";
 
-export function StepForm() {
+export function StepForm({onClick}: OnClickProps) {
     const [url, setUrl] = useState<string>("")
+    const [{ runFetchAgain }] = useFetch(url, CRUDType.POST)
 
-    useFetch(url, CRUDType.POST)
-
-    const stepFormSubmit = (evt: any) => setUrl(STEP_PATH)
+    const onButtonClick = () => {
+        setUrl(STEP_PATH)
+        runFetchAgain()
+        onClick()
+    }
 
     return (
-        <Form className="p-2">
-            <h1>Step Form</h1>
-            <Button variant="primary" type="submit" onClick={stepFormSubmit}>
-                Submit
+        <div className="p-2">
+            <h1>Make Elevators Step</h1>
+            <Button variant="primary" type="submit" onClick={onButtonClick}>
+                Make Step
             </Button>
-        </Form>
+        </div>
     )
 }

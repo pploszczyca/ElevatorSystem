@@ -9,6 +9,7 @@ export const useFetch = (url: string, method: CRUDType) => {
     const [data, setData] = useState<any>(null)
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<any>(null)
+    const [runFetch, setRunFetch] = useState<boolean>(false)
 
     const requestOptions: RequestInit = {
         method: method,
@@ -16,6 +17,8 @@ export const useFetch = (url: string, method: CRUDType) => {
             'Content-Type': 'application/json'
         }
     }
+
+    const runFetchAgain = () => setRunFetch(!runFetch)
 
     useEffect(() => {
         if(url !== "") {
@@ -27,7 +30,7 @@ export const useFetch = (url: string, method: CRUDType) => {
             })
             .catch(error => setError(error.toString()))
         }
-    }, [url])
+    }, [url, runFetchAgain])
 
-    return [{ data, isLoading, error }]
+    return [{ data, isLoading, error, runFetchAgain }]
 }

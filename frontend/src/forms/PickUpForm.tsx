@@ -2,18 +2,22 @@ import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { PICKUP_PATH } from "../Constants";
 import { CRUDType, useFetch } from "../hooks/UseFetch";
+import { OnClickProps } from "./OnClickProps";
 
-export function PickUpForm() {
+export function PickUpForm({onClick}: OnClickProps) {
     const [url, setUrl] = useState<string>("")
     const [floor, setFloor] = useState<number>(0)
     const [direction, setDirection] = useState<number>(1)
+    const [{ runFetchAgain }] = useFetch(url, CRUDType.POST)
 
-    useFetch(url, CRUDType.POST)
-
-    const pickUpFormSubmit = (evt: any) => setUrl(`${PICKUP_PATH}/${floor}/${direction}`)
+    const onButtonClick = () => {
+        setUrl(`${PICKUP_PATH}/${floor}/${direction}`)
+        runFetchAgain()
+        onClick()
+    }
 
     return (
-        <Form className="p-2">
+        <div className="p-2">
             <h1>Pick Up Form</h1>
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="pickUpFloor">
@@ -30,10 +34,10 @@ export function PickUpForm() {
                 </Form.Group>
             </Row>
 
-            <Button variant="primary" type="submit" onClick={pickUpFormSubmit}>
-                Submit
+            <Button variant="primary" type="submit" onClick={onButtonClick}>
+                Make pick up
             </Button>
-        </Form>
+        </div>
     )
 }
 
