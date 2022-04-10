@@ -10,5 +10,5 @@ object Constants:
 
   val NUMBER_OF_ELEVATORS = 16
 
-  val HOST_IP = ipv4"127.0.0.1"
-  val PORT = port"8080"
+  val HOST_IP = ipv4"0.0.0.0"
+  val PORT = port"9000"
