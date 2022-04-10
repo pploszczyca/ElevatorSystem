@@ -1,4 +1,4 @@
-package elevators.models
+package models
 
 enum Direction(val value: Int):
   case UP extends Direction(1)

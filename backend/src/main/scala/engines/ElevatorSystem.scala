@@ -1,6 +1,6 @@
-package elevators.engines
+package engines
 
-import elevators.models.{Direction, ElevatorStatus}
+import models.{Direction, ElevatorStatus}
 
 trait ElevatorSystem:
   def pickup(floor: Int, direction: Direction): Unit

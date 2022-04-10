@@ -31,7 +31,7 @@ export const useFetch = (url: string, method: CRUDType) => {
             })
             .catch(error => setError(error.toString()))
         }
-    }, [url, runFetchAgain, method])
+    }, [url, runFetch, method])
 
     return [{ data, isLoading, error, runFetchAgain }]
 }
