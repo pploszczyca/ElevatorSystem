@@ -25,3 +25,12 @@ class SimpleElevator(private val elevatorId: Int,
   override def getCurrentDirection: Direction = currentDirection
 
   protected def calculateDirection(): Direction = Direction(this.currentFloor, this.destinationFloor)
+
+  override def calculateStepsToFloor(floor: Int): Int = {
+    if isFloorOnCurrentWay(floor) then
+      Math.abs(currentFloor - floor)
+    else
+      Math.abs(currentFloor - destinationFloor) + Math.abs(floor - destinationFloor)
+  }
+
+  private def isFloorOnCurrentWay(floor: Int): Boolean = (currentFloor <= floor && floor <= destinationFloor) || (destinationFloor <= floor && floor <= currentFloor)

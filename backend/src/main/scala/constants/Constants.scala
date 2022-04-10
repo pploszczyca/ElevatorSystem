@@ -3,7 +3,7 @@ package constants
 import com.comcast.ip4s.{ipv4, port}
 
 object Constants:
-  val ELEVATORS_PATH = "models"
+  val ELEVATORS_PATH = "elevators"
   val PICKUP_PATH = "pickup"
   val UPDATE_PATH = "update"
   val STEP_PATH = "step"

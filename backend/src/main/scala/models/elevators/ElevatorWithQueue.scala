@@ -24,11 +24,12 @@ class ElevatorWithQueue(private val elevatorId: Int,
   }
 
   override def update(destinationFloor: Int): Unit = {
-    if currentDirection == Direction.STAYING then
+    if currentDirection == Direction.STAYING || (Direction(currentFloor, destinationFloor) == currentDirection && Math.abs(this.destinationFloor) < Math.abs(destinationFloor)) then
       this.destinationFloor = destinationFloor
       currentDirection = calculateDirection()
 
     if destinationFloor != currentFloor then
       floorsQueue += destinationFloor
   }
+
 

@@ -1,7 +1,7 @@
 package engines
 
 import models.{Direction, ElevatorStatus}
-import models.elevators.SimpleElevator
+import models.elevators.ElevatorWithQueue
 import engines.ElevatorSystem
 import org.scalatest.BeforeAndAfter
 import org.scalatest.funsuite.AnyFunSuite
@@ -11,7 +11,7 @@ class SimpleElevatorSystemTest extends AnyFunSuite with BeforeAndAfter {
   var elevatorSystem: ElevatorSystem = _
 
   before {
-    val elevatorsList = (0 until numberOfElevators).map(id => SimpleElevator(id)).toList
+    val elevatorsList = (0 until numberOfElevators).map(id => ElevatorWithQueue(id)).toList
     elevatorSystem = SimpleElevatorSystem(elevatorsList)
   }
 
@@ -27,7 +27,19 @@ class SimpleElevatorSystemTest extends AnyFunSuite with BeforeAndAfter {
     assert(elevatorSystem.status().contains(ElevatorStatus(elevatorIdToUpdate, 0, destinationFloor)))
   }
 
-  test("Pickup and step test") {
+  test("Pick up test") {
+    // Given
+    val pickUpsList = List(2, 5, 1, -1, -3)
+
+    // When
+    pickUpsList.foreach(floor => elevatorSystem.pickup(floor, Direction.UP))
+
+    // Then
+    assert(getCurrentAndDestinationFromStatuses.contains((0, 5)))
+    assert(getCurrentAndDestinationFromStatuses.contains((0,-3)))
+  }
+
+  test("Simple pickup and step test") {
     // Given
     val floor = 2
     val direction = Direction.UP
@@ -37,6 +49,9 @@ class SimpleElevatorSystemTest extends AnyFunSuite with BeforeAndAfter {
     elevatorSystem.step()
 
     // Then
-    assert(elevatorSystem.status().contains(ElevatorStatus(0, 1, floor)))
+    assert(getCurrentAndDestinationFromStatuses.contains((1, floor)))
   }
+
+  private def getCurrentAndDestinationFromStatuses: List[(Int, Int)] = elevatorSystem.status()
+    .map(elevatorStatus => (elevatorStatus.currentFloor, elevatorStatus.destinationFloor))
 }

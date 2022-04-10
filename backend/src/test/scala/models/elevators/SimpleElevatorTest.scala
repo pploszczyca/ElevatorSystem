@@ -46,4 +46,40 @@ class SimpleElevatorTest extends AnyFunSuite {
     // Then
     assert(elevator.status() == ElevatorStatus(elevatorId, currentFloor, destinationFloor))
   }
+
+  test("Calculating the amount of steps on the same path test") {
+    // Given
+    val elevator = SimpleElevator(0, 0, 5)
+    val floor = 3
+
+    // When
+    val stepsToFloor = elevator.calculateStepsToFloor(floor)
+
+    // Then
+    assert(stepsToFloor == 3)
+  }
+
+  test("Calculating the amount of steps not on the same path test") {
+    // Given
+    val elevator = SimpleElevator(0, 2, 5)
+    val floor = -3
+
+    // When
+    val stepsToFloor = elevator.calculateStepsToFloor(floor)
+
+    // Then
+    assert(stepsToFloor == 11)
+  }
+
+  test("Calculate the amount of steps with floor lower than destination test") {
+    // Given
+    val elevator = SimpleElevator(0, 5, -3)
+    val floor = -6
+
+    // When
+    val stepsToFloor = elevator.calculateStepsToFloor(floor)
+
+    // Then
+    assert(stepsToFloor == 11)
+  }
 }
