@@ -50,3 +50,18 @@ To run:
 ```
 $ sudo docker run -p 3000:3000 -d pploszczyca/elevators-system-frontend
 ```
+
+### Without docker
+#### Backend
+Go to `backend` folder and run:
+```
+$ sbt compile
+$ sbt run
+```
+
+#### Frontend
+Go to `frontend` folder and run:
+```
+$ npm install
+$ npm run
+```
