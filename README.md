@@ -1,4 +1,5 @@
 # ElevatorSystem
+Simple client-server app that simulates Elevator System.
 ## Technologies
 ### Backend
 * [Scala 3](https://docs.scala-lang.org/scala3/new-in-scala3.html)
@@ -30,6 +31,7 @@ Run both:
 ```
 $ sudo docker-compose -f docker-compose.yml up
 ```
+To see frontend page go to: http://localhost:3000
 
 #### Only Backend
 Go to `backend` folder and build image:
@@ -64,4 +66,91 @@ Go to `frontend` folder and run:
 ```
 $ npm install
 $ npm run
+```
+
+## API
+### Get Elevators Status
+```http
+GET /elevators
+```
+#### Response
+Json, list of elevators status
+```json
+[
+    {
+    "elevatorID": 0,
+    "currentFloor": 2,
+    "destinationFloor": 3
+    }, ...
+]
+```
+
+### Pickup elevator
+```http
+POST /elevators/pickup/{floor}/{direction}
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `floor` | `int` | **Required**. Floor where we press the button |
+| `direction` | `-1 or 1` | **Required**. Direction, 1 is UP, -1 is DOWN|
+
+#### Example
+```http
+POST /elevators/pickup/10/1
+```
+#### Response
+Json, list of elevators status
+```json
+[
+    {
+    "elevatorID": 0,
+    "currentFloor": 2,
+    "destinationFloor": 3
+    }, ...
+]
+```
+
+### Update elevator
+```http
+POST /elevators/update/{elevatorId}/{destinationFloor}
+```
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `elevatorId` | `int` | **Required**. Id of elevator |
+| `destinationFloor` | `int` | **Required**. Destination floor|
+
+#### Example
+```http
+POST /elevators/update/1/5
+```
+
+#### Response
+Json, list of elevators status
+```json
+[
+    {
+    "elevatorID": 0,
+    "currentFloor": 2,
+    "destinationFloor": 3
+    }, ...
+]
+```
+
+### Make step
+```http
+POST /elevators/step
+```
+
+#### Response
+Json, list of elevators status
+```json
+[
+    {
+    "elevatorID": 0,
+    "currentFloor": 2,
+    "destinationFloor": 3
+    }, ...
+]
 ```
