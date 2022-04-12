@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { MAX_FLOOR_LEVEL, MIN_FLOOR_LEVEL, PICKUP_PATH } from "../Constants";
 import { CRUDType, useFetch } from "../hooks/UseFetch";
-import { OnClickProps } from "./OnClickProps";
+import { isFloorProper, OnClickProps } from "./OnClickProps";
 
 export function PickUpForm({onClick}: OnClickProps) {
     const [url, setUrl] = useState<string>("")
@@ -11,13 +11,15 @@ export function PickUpForm({onClick}: OnClickProps) {
     const [{ data, runFetchAgain }] = useFetch(url, CRUDType.POST)
 
     const onButtonClick = () => {
-        setUrl(`${PICKUP_PATH}/${floor}/${direction}`)
-        runFetchAgain()
+        if(isFloorProper(floor)) {
+            setUrl(`${PICKUP_PATH}/${floor}/${direction}`)
+            runFetchAgain()
+        }
     }
 
     useEffect(() => {
         onClick(data)
-    }, [data])
+    }, [data, onClick])
 
 
     return (

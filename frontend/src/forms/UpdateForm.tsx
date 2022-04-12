@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { MAX_FLOOR_LEVEL, MIN_FLOOR_LEVEL, UPDATE_PATH } from "../Constants";
 import { CRUDType, useFetch } from "../hooks/UseFetch";
-import { OnClickProps } from "./OnClickProps";
+import { isFloorProper, OnClickProps } from "./OnClickProps";
 
 export function UpdateForm({onClick}: OnClickProps) {
     const [url, setUrl] = useState<string>("")
@@ -11,13 +11,15 @@ export function UpdateForm({onClick}: OnClickProps) {
     const [{ data, runFetchAgain }] = useFetch(url, CRUDType.POST)
     
     const onButtonClick = () => {
-        setUrl(`${UPDATE_PATH}/${elevatorId}/${destinationFloor}`)
-        runFetchAgain()
+        if(isFloorProper(destinationFloor)) {
+            setUrl(`${UPDATE_PATH}/${elevatorId}/${destinationFloor}`)
+            runFetchAgain()
+        }
     }
 
     useEffect(() => {
         onClick(data)
-    }, [data])
+    }, [data, onClick])
 
 
     return (

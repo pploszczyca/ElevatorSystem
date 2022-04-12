@@ -15,7 +15,7 @@ export function StepForm({onClick}: OnClickProps) {
 
     useEffect(() => {
         onClick(data)
-    }, [data])
+    }, [data, onClick])
 
     return (
         <div className="p-2">
