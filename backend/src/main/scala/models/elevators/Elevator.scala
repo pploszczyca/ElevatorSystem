@@ -10,5 +10,5 @@ trait Elevator:
   def status(): ElevatorStatus
 
   def getCurrentDirection: Direction
-  
+
   def calculateStepsToFloor(floor: Int): Int

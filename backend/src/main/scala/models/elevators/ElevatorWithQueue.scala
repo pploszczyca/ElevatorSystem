@@ -6,7 +6,7 @@ import scala.collection.mutable.Set as MutableSet
 
 class ElevatorWithQueue(private val elevatorId: Int,
                         private val startCurrentFloor: Int = 0,
-                        private val startDestinationFloor: Int = 0) extends SimpleElevator(elevatorId, startCurrentFloor, startDestinationFloor):
+                        private val startDestinationFloor: Int = 0) extends SimpleElevator(elevatorId, startCurrentFloor, startDestinationFloor) :
   private val floorsQueue = MutableSet.empty[Int]
 
   if currentDirection != Direction.STAYING then
