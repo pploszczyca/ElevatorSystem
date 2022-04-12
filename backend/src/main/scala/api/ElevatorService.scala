@@ -14,18 +14,23 @@ import org.json4s.{DefaultFormats, Formats}
 class ElevatorService(elevatorSystem: ElevatorSystem):
   val routes = HttpRoutes.of[IO] {
     case GET -> Root / ELEVATORS_PATH =>
-      Ok(write(elevatorSystem.status()))
+      makeOkWithElevatorStatus()
 
     case POST -> Root / ELEVATORS_PATH / PICKUP_PATH / floor / direction =>
-      Ok(elevatorSystem.pickup(floor.toInt, Direction(direction.toInt)))
+      elevatorSystem.pickup(floor.toInt, Direction(direction.toInt))
+      makeOkWithElevatorStatus()
 
     case POST -> Root / ELEVATORS_PATH / UPDATE_PATH / elevatorId / destinationFloor =>
-      Ok(elevatorSystem.update(elevatorId.toInt, destinationFloor.toInt))
+      elevatorSystem.update(elevatorId.toInt, destinationFloor.toInt)
+      makeOkWithElevatorStatus()
 
     case POST -> Root / ELEVATORS_PATH / STEP_PATH =>
-      Ok(elevatorSystem.step())
+      elevatorSystem.step()
+      makeOkWithElevatorStatus()
 
   }.orNotFound
 
   implicit val formats: Formats = DefaultFormats
+
+  private def makeOkWithElevatorStatus() = Ok(write(elevatorSystem.status()))
 
