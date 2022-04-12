@@ -6,13 +6,13 @@ import engines.ElevatorSystem
 import org.scalatest.BeforeAndAfter
 import org.scalatest.funsuite.AnyFunSuite
 
-class SimpleElevatorSystemTest extends AnyFunSuite with BeforeAndAfter {
+class ElevatorSystemImpTest extends AnyFunSuite with BeforeAndAfter {
   val numberOfElevators = 4
   var elevatorSystem: ElevatorSystem = _
 
   before {
     val elevatorsList = (0 until numberOfElevators).map(id => ElevatorWithQueue(id)).toList
-    elevatorSystem = SimpleElevatorSystem(elevatorsList)
+    elevatorSystem = ElevatorSystemImp(elevatorsList)
   }
 
   test("Update test") {
@@ -36,7 +36,23 @@ class SimpleElevatorSystemTest extends AnyFunSuite with BeforeAndAfter {
 
     // Then
     assert(getCurrentAndDestinationFromStatuses.contains((0, 5)))
-    assert(getCurrentAndDestinationFromStatuses.contains((0,-3)))
+    assert(getCurrentAndDestinationFromStatuses.contains((0, -3)))
+  }
+
+  test("Pick up with the same steps and opposite direction test") {
+    // Given
+    val firstElevator = ElevatorWithQueue(0, 0, 1)
+    val secondElevator = ElevatorWithQueue(1, 6, 5)
+    val elevatorSystem = ElevatorSystemImp(List(firstElevator, secondElevator))
+    val floor = 3
+    val direction = Direction.UP
+
+    // When
+    elevatorSystem.pickup(floor, direction)
+
+    // Then
+    assert(firstElevator.status() == ElevatorStatus(0, 0, 3))
+    assert(secondElevator.status() == ElevatorStatus(1, 6, 5))
   }
 
   test("Simple pickup and step test") {
