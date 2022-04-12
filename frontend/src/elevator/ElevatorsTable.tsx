@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { Elevator } from "./Elevator";
 

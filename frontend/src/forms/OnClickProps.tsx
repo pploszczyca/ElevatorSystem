@@ -1,3 +1,5 @@
+import { Elevator } from "../elevator/Elevator";
+
 export interface OnClickProps {
-    onClick: () => void
+    onClick: (elevatorsArray: Array<Elevator>) => void
 }

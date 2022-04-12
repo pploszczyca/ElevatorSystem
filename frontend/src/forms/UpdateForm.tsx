@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { UPDATE_PATH } from "../Constants";
+import { MAX_FLOOR_LEVEL, MIN_FLOOR_LEVEL, UPDATE_PATH } from "../Constants";
 import { CRUDType, useFetch } from "../hooks/UseFetch";
 import { OnClickProps } from "./OnClickProps";
 
@@ -8,13 +8,17 @@ export function UpdateForm({onClick}: OnClickProps) {
     const [url, setUrl] = useState<string>("")
     const [elevatorId, setElevatorId] = useState<number>(0)
     const [destinationFloor, setDestinationFloor] = useState<number>(0)
-    const [{ runFetchAgain }] = useFetch(url, CRUDType.POST)
+    const [{ data, runFetchAgain }] = useFetch(url, CRUDType.POST)
     
     const onButtonClick = () => {
         setUrl(`${UPDATE_PATH}/${elevatorId}/${destinationFloor}`)
         runFetchAgain()
-        onClick();
     }
+
+    useEffect(() => {
+        onClick(data)
+    }, [data])
+
 
     return (
         <div className="p-2">
@@ -27,7 +31,7 @@ export function UpdateForm({onClick}: OnClickProps) {
 
                 <Form.Group as={Col} controlId="updateDestinationFloor">
                     <Form.Label>Destination Floor</Form.Label>
-                    <Form.Control type="number" value={destinationFloor} onChange={newDestinationFloor => setDestinationFloor(Number(newDestinationFloor.target.value))}/>
+                    <Form.Control type="number" value={destinationFloor} min={MIN_FLOOR_LEVEL} max={MAX_FLOOR_LEVEL} onChange={newDestinationFloor => setDestinationFloor(Number(newDestinationFloor.target.value))}/>
                 </Form.Group>
             </Row>
 

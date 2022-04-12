@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ElevatorsTable } from './elevator/ElevatorsTable';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CRUDType, useFetch } from './hooks/UseFetch';
@@ -7,13 +7,26 @@ import { PickUpForm } from './forms/PickUpForm';
 import { UpdateForm } from './forms/UpdateForm';
 import { StepForm } from './forms/StepForm';
 import { Col, Container, Row } from 'react-bootstrap';
+import { Elevator } from './elevator/Elevator';
 
 function App() {
-  const [{ data, isLoading, runFetchAgain }] = useFetch(ELEVATORS_PATH, CRUDType.GET)
-  var elevatorsList = data
+  const [{ data, isLoading }] = useFetch(ELEVATORS_PATH, CRUDType.GET)
+  const [ elevatorsList, setElevatorsList] = useState<Elevator[] | []>([])
+
+  useEffect(() => {
+    if(data != null) {
+      setElevatorsList(data)
+    }
+  }, [data])
 
   if(isLoading) {
     return <div>Loading</div>
+  }
+
+  const changeData = (newElevatorsArray: Array<Elevator>) => {
+    if (newElevatorsArray != null) {
+      setElevatorsList(newElevatorsArray)
+    } 
   }
 
   return (
@@ -24,9 +37,9 @@ function App() {
           <ElevatorsTable elevatorsList={elevatorsList}/>
         </Col>
         <Col>
-          <PickUpForm onClick={runFetchAgain}/>
-          <UpdateForm onClick={runFetchAgain}/>
-          <StepForm onClick={runFetchAgain}/>
+          <PickUpForm onClick={changeData}/>
+          <UpdateForm onClick={changeData}/>
+          <StepForm onClick={changeData}/>
         </Col>
       </Row>
     </Container>
